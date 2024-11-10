@@ -1,23 +1,32 @@
-import { resolve as _resolve } from 'path';
+const path = require('path');
 
-export const entry = {
-  background: './src/background.ts',
-  content: './src/content-script.ts'
+module.exports = {
+  entry: {
+    background: './src/background.ts',
+    'content-script': './src/content-script.ts',  // Keep entry as 'content-script'
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: (pathData) => {
+      // Check if the chunk name is 'content-script' and ensure correct output name
+      if (pathData.chunk.name === 'content-script') {
+        return 'content-script.js';  // Output 'content-script.js' for the content script
+      }
+      // For other scripts, keep the default [name].js naming
+      return '[name].js';
+    },
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  mode: 'production',
 };
-export const output = {
-  path: _resolve(__dirname, 'dist'),
-  filename: '[name].js'
-};
-export const resolve = {
-  extensions: ['.ts', '.js']
-};
-export const module = {
-  rules: [
-    {
-      test: /\.ts$/,
-      use: 'ts-loader',
-      exclude: /node_modules/
-    }
-  ]
-};
-export const mode = 'production';

@@ -17,11 +17,11 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.systembolaget.se/produkt/*"
-
+        "<all_urls>",
+        "*://*.systembolaget.se/*"
       ],
       "js": [
-        "dist/content.js"
+        "dist/content-script.js"
       ]
     }
   ],
@@ -33,5 +33,6 @@
       "id": "vivino-rating-systembolaget@mydomain.com",
       "strict_min_version": "109.0"
     }
-  }
+  },
+  "content_security_policy": "default-src 'none'"
 }
