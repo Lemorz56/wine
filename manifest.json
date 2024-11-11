@@ -34,5 +34,5 @@
       "strict_min_version": "109.0"
     }
   },
-  "content_security_policy": "default-src 'none'"
+  "content_security_policy": "script-src 'self'; object-src 'self'; connect-src 'self' https://www.vivino.com"
 }
